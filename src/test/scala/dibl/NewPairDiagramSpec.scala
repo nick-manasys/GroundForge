@@ -28,8 +28,10 @@ class NewPairDiagramSpec extends FlatSpec with Matchers {
     svgString should include ("marker-mid: url('#twist-1')")
   }
 
-  it should "produce valid SVG" in {
-    val content = D3jsSVG.render(NewPairDiagram.create(paris4(9,9)))
+  it should "produce pairs numbered from left to right" in {
+    // TODO visual check proves otherwise, some seem to start at (0,0) what is not the case on tiles.html
+    val triangles ="repeatWidth=12&repeatHeight=12&shiftColsSE=2&shiftRowsSE=3&shiftColsSW=-2&shiftRowsSW=3&&tile=-5--,6-CD,124-&"
+    val content = D3jsSVG.render(NewPairDiagram.create( new Config(triangles)))
     File("target/new-diagram.html").writeAll(s"<html><body>$content</body></html>")
   }
 }
